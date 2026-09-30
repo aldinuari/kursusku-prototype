@@ -21,19 +21,36 @@ $courses = [
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= htmlspecialchars($siteName) ?></title>
     <style>
-        body{font-family:Arial,sans-serif;background:#f5f7f6;margin:0;padding:0;color:#16332c}
-        header{background:#0f766e;padding:16px 24px}
-        header a{color:#fff;text-decoration:none;margin-right:16px}
-        main{max-width:960px;margin:auto;padding:24px}
-        section{background:#fff;padding:24px;border-radius:16px;margin-bottom:24px}
-        table{width:100%;border-collapse:collapse}
-        th,td{border-bottom:1px solid #ddd;padding:10px;text-align:left}
-        .badge-available,.badge-full{display:inline-block;padding:4px 8px;border-radius:999px;font-weight:700}
-        .badge-available{background:#e7f8ef;color:#146c43}
-        .badge-full{background:#fdeaea;color:#a61b1b}
-        #hero{text-align:center}
-        video,img{max-width:100%;height:auto}
-        footer{text-align:center;padding:16px;color:#666}
+        body { font-family: Arial, sans-serif; background: #f5f7f6; margin: 0; padding: 0; color: #16332c; }
+        header { background: #0f766e; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+        header a { color: #fff; text-decoration: none; margin-right: 16px; font-size: 14px; }
+        header a:hover { text-decoration: underline; }
+        
+        /* Tombol Spesial di Navbar */
+        .btn-nav { background: #2563eb; padding: 8px 16px; border-radius: 6px; font-weight: bold; }
+        .btn-nav:hover { background: #1d4ed8; text-decoration: none !important; }
+
+        main { max-width: 960px; margin: auto; padding: 24px; }
+        section { background: #fff; padding: 24px; border-radius: 16px; margin-bottom: 24px; }
+        
+        /* Style Hero & Tombol Utama */
+        #hero { text-align: center; padding: 40px 20px; }
+        #hero h1 { margin-bottom: 12px; }
+        #hero p { color: #4b5563; margin-bottom: 24px; }
+        .hero-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+        .btn-primary { background: #0f766e; color: #fff; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; }
+        .btn-primary:hover { background: #115e59; }
+        .btn-secondary { background: #e5e7eb; color: #374151; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; }
+        .btn-secondary:hover { background: #d1d5db; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+        th, td { border-bottom: 1px solid #ddd; padding: 10px; text-align: left; }
+        .badge-available, .badge-full { display: inline-block; padding: 4px 8px; border-radius: 999px; font-weight: 700; font-size: 12px; }
+        .badge-available { background: #e7f8ef; color: #146c43; }
+        .badge-full { background: #fdeaea; color: #a61b1b; }
+        
+        video, img { max-width: 100%; height: auto; border-radius: 8px; }
+        footer { text-align: center; padding: 16px; color: #666; }
     </style>
 </head>
 <body>
@@ -45,6 +62,7 @@ $courses = [
         <a href="#alur">Cara Daftar</a>
         <a href="#kontak">Kontak</a>
         <a href="fee-calculator.php">Estimasi Biaya</a>
+        <a href="registration.php" class="btn-nav">Daftar Sekarang</a>
     </nav>
 </header>
 
@@ -52,9 +70,12 @@ $courses = [
     <section id="hero">
         <h1><?= htmlspecialchars($tagline) ?></h1>
         <p>Temukan kursus teknologi yang relevan untuk meningkatkan keterampilan Anda.</p>
-        <a href="#katalog">Lihat Katalog Kursus</a>
-        &nbsp;|&nbsp;
-        <a href="fee-calculator.php">Lihat Estimasi Biaya</a>
+        
+        <div class="hero-actions">
+            <a href="registration.php" class="btn-primary">Daftar Kursus Sekarang</a>
+            <a href="#katalog" class="btn-secondary">Lihat Katalog Kursus</a>
+            <a href="fee-calculator.php" class="btn-secondary">Hitung Estimasi Biaya</a>
+        </div>
     </section>
 
     <section id="keunggulan">
@@ -84,6 +105,7 @@ $courses = [
                     <th>Mulai</th>
                     <th>Sisa</th>
                     <th>Status</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -99,6 +121,13 @@ $courses = [
                         <td><?= formatTanggal($course['start_date']) ?></td>
                         <td><?= sisaKursi($course['quota'], $course['registered']) ?></td>
                         <td><span class="<?= $statusClass ?>"><?= $status ?></span></td>
+                        <td>
+                            <?php if ($status !== 'Penuh'): ?>
+                                <a href="registration.php" style="color: #0f766e; font-weight: bold; text-decoration: none;">Daftar</a>
+                            <?php else: ?>
+                                <span style="color: #9ca3af;">Tutup</span>
+                            <?php endif; ?>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -108,9 +137,9 @@ $courses = [
     <section id="alur">
         <h2>Cara Mendaftar</h2>
         <ol>
-            <li>Pilih kursus yang diminati.</li>
-            <li>Isi form pendaftaran.</li>
-            <li>Periksa kembali data.</li>
+            <li>Pilih kursus yang diminati pada katalog.</li>
+            <li>Klik tombol **Daftar** atau menuju ke form pendaftaran.</li>
+            <li>Isi data diri dan pilih jenis kursus yang diinginkan.</li>
             <li>Kirim pendaftaran dan tunggu konfirmasi.</li>
         </ol>
     </section>
