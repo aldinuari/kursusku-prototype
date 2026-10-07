@@ -1,34 +1,44 @@
 <?php
-
-/**
- * Mengubah angka menjadi format rupiah untuk ditampilkan.
- */
-function rupiah(int $amount): string
+function e(string $value): string
 {
-    return 'Rp ' . number_format($amount, 0, ',', '.');
+    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 }
 
-/**
- * Menentukan status kursus berdasarkan quota dan jumlah pendaftar.
- */
-function statusKursus(int $quota, int $registered): string
+function formatRupiah(int $amount): string
 {
-    return $registered >= $quota ? 'Penuh' : 'Tersedia';
+    return 'Rp' . number_format($amount, 0, ',', '.');
 }
 
-/**
- * Menghitung sisa kursi yang tersedia. Tidak pernah menghasilkan angka negatif.
- */
-function sisaKursi(int $quota, int $registered): int
+function findCourse(array $courses, string $code): ?array
 {
-    return max(0, $quota - $registered);
+    foreach ($courses as $course) {
+        if ($course['code'] === $code) {
+            return $course;
+        }
+    }
+    return null;
 }
 
-/**
- * Mengubah format tanggal sumber (Y-m-d) menjadi format tampil (d-m-Y).
- */
-function formatTanggal(string $date): string
+function getDiscountPercent(string $participantType): int
 {
-    $value = new DateTimeImmutable($date);
-    return $value->format('d-m-Y');
+    if ($participantType === 'mahasiswa') {
+        return 20;
+    } elseif ($participantType === 'guru') {
+        return 15;
+    }
+    return 0;
+}
+
+function getLearningModeLabel(string $mode): string
+{
+    switch ($mode) {
+        case 'offline':
+            return 'Tatap Muka';
+        case 'online':
+            return 'Online';
+        case 'hybrid':
+            return 'Hybrid';
+        default:
+            return 'Tidak diketahui';
+    }
 }
