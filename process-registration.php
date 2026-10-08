@@ -17,38 +17,94 @@ if (!is_array($interests)) {
     $interests = [];
 }
 
+
+/* =========================
+   DATA KURSUS
+========================= */
+
 $courseNames = [
     'web-dasar' => 'Web Dasar',
     'php-dasar' => 'PHP Dasar',
     'laravel-fundamental' => 'Laravel Dasar'
 ];
 
+
+/* =========================
+   HARGA KURSUS
+========================= */
+
+$coursePrices = [
+    'web-dasar' => 300000,
+    'php-dasar' => 400000,
+    'laravel-fundamental' => 500000
+];
+
+
+/* =========================
+   JENIS PESERTA
+========================= */
+
 $participantNames = [
     'mahasiswa' => 'Mahasiswa',
     'umum' => 'Umum'
 ];
 
+
 $courseDisplay = $courseNames[$course] ?? $course;
-$participantDisplay = $participantNames[$participantType] ?? $participantType;
+
+$participantDisplay =
+    $participantNames[$participantType] ?? $participantType;
+
+
+/* =========================
+   PERHITUNGAN BIAYA
+========================= */
+
+$coursePrice = $coursePrices[$course] ?? 0;
+
+$adminFee = 10000;
+
+$totalPayment = $coursePrice + $adminFee;
+
+
+/* =========================
+   MINAT
+========================= */
 
 $interestDisplay = !empty($interests)
     ? implode(', ', $interests)
     : 'Tidak ada';
+
 ?>
 
 <!DOCTYPE html>
 <html lang="id">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Pendaftaran Berhasil - KursusKu</title>
 
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link
+        rel="stylesheet"
+        href="assets/css/style.css"
+    >
+
 </head>
 
+
 <body>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
 
 <header class="navbar">
 
@@ -59,9 +115,19 @@ $interestDisplay = !empty($interests)
         </a>
 
         <nav>
-            <a href="index.php">Beranda</a>
-            <a href="registration.php">Daftar Kursus</a>
-            <a href="history.php">History Dummy</a>
+
+            <a href="index.php">
+                Beranda
+            </a>
+
+            <a href="registration.php">
+                Daftar Kursus
+            </a>
+
+            <a href="history.php">
+                History Dummy
+            </a>
+
         </nav>
 
     </div>
@@ -69,11 +135,18 @@ $interestDisplay = !empty($interests)
 </header>
 
 
+
+<!-- =========================
+     HASIL PENDAFTARAN
+========================= -->
+
 <main class="result-page">
 
     <div class="result-card">
 
+
         <!-- STATUS -->
+
         <div class="result-icon">
             ✓
         </div>
@@ -87,25 +160,41 @@ $interestDisplay = !empty($interests)
             Pendaftaran Diterima
         </h1>
 
+
         <p class="result-description">
+
             Terima kasih,
-            <strong><?= htmlspecialchars($name) ?></strong>.
-            Data pendaftaran kamu sudah diterima dan siap diproses.
+            <strong>
+                <?= htmlspecialchars($name) ?>
+            </strong>.
+
+            Data pendaftaran kamu sudah diterima
+            dan siap diproses.
+
         </p>
 
 
-        <!-- DETAIL -->
+
+        <!-- =========================
+             DETAIL PENDAFTARAN
+        ========================= -->
+
         <div class="detail-card">
 
             <div class="detail-header">
 
                 <div>
-                    <h2>Detail Pendaftaran</h2>
+
+                    <h2>
+                        Detail Pendaftaran
+                    </h2>
 
                     <p>
                         Periksa kembali data latihan berikut.
                     </p>
+
                 </div>
+
 
                 <span class="status-badge">
                     ✓ Diterima
@@ -116,83 +205,247 @@ $interestDisplay = !empty($interests)
 
             <div class="detail-list">
 
+
                 <div class="detail-row">
-                    <span>Nama</span>
+
+                    <span>
+                        Nama
+                    </span>
+
                     <strong>
                         <?= htmlspecialchars($name) ?>
                     </strong>
+
                 </div>
 
+
                 <div class="detail-row">
-                    <span>Email</span>
+
+                    <span>
+                        Email
+                    </span>
+
                     <strong>
                         <?= htmlspecialchars($email) ?>
                     </strong>
+
                 </div>
 
+
                 <div class="detail-row">
-                    <span>Nomor HP</span>
+
+                    <span>
+                        Nomor HP
+                    </span>
+
                     <strong>
                         <?= htmlspecialchars($phone) ?>
                     </strong>
+
                 </div>
 
+
                 <div class="detail-row">
-                    <span>Program Studi</span>
+
+                    <span>
+                        Program Studi
+                    </span>
+
                     <strong>
                         <?= htmlspecialchars($studyProgram) ?>
                     </strong>
+
                 </div>
 
+
                 <div class="detail-row">
-                    <span>Kursus</span>
+
+                    <span>
+                        Kursus
+                    </span>
+
                     <strong class="purple-text">
                         <?= htmlspecialchars($courseDisplay) ?>
                     </strong>
+
                 </div>
 
+
                 <div class="detail-row">
-                    <span>Jenis Peserta</span>
+
+                    <span>
+                        Jenis Peserta
+                    </span>
+
                     <strong>
                         <?= htmlspecialchars($participantDisplay) ?>
                     </strong>
+
                 </div>
 
+
                 <div class="detail-row">
-                    <span>Minat</span>
+
+                    <span>
+                        Minat
+                    </span>
+
                     <strong>
                         <?= htmlspecialchars($interestDisplay) ?>
                     </strong>
+
                 </div>
 
+
                 <div class="detail-row">
-                    <span>Catatan</span>
+
+                    <span>
+                        Catatan
+                    </span>
+
                     <strong>
+
                         <?= $note !== ''
                             ? htmlspecialchars($note)
                             : 'Tidak ada catatan'
                         ?>
+
                     </strong>
+
                 </div>
 
+
                 <div class="detail-row">
-                    <span>Sumber</span>
+
+                    <span>
+                        Sumber
+                    </span>
+
                     <strong>
                         <?= htmlspecialchars($source) ?>
                     </strong>
+
                 </div>
+
 
             </div>
 
         </div>
 
 
-        <!-- INFO -->
+
+        <!-- =========================
+             RINCIAN BIAYA
+        ========================= -->
+
+        <div class="payment-card">
+
+            <div class="payment-header">
+
+                <div class="payment-icon">
+                    💳
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Rincian Biaya
+                    </h2>
+
+                    <p>
+                        Detail biaya kursus yang dipilih.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="payment-list">
+
+
+                <!-- HARGA KURSUS -->
+
+                <div class="payment-row">
+
+                    <span>
+                        <?= htmlspecialchars($courseDisplay) ?>
+                    </span>
+
+                    <strong>
+                        <?= formatRupiah($coursePrice) ?>
+                    </strong>
+
+                </div>
+
+
+                <!-- ADMIN -->
+
+                <div class="payment-row">
+
+                    <span>
+                        Biaya Administrasi
+                    </span>
+
+                    <strong>
+                        <?= formatRupiah($adminFee) ?>
+                    </strong>
+
+                </div>
+
+
+                <!-- GARIS -->
+
+                <div class="payment-divider"></div>
+
+
+                <!-- TOTAL -->
+
+                <div class="payment-total">
+
+                    <span>
+                        Total Pembayaran
+                    </span>
+
+                    <strong>
+                        <?= formatRupiah($totalPayment) ?>
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- INFO BIAYA -->
+
+            <div class="payment-note">
+
+                <strong>
+                    💡 Informasi
+                </strong>
+
+                <p>
+                    Total pembayaran terdiri dari harga kursus
+                    dan biaya administrasi.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             INFO
+        ========================= -->
+
         <div class="result-info">
 
             <div class="result-info-icon">
                 ✓
             </div>
+
 
             <div>
 
@@ -211,7 +464,11 @@ $interestDisplay = !empty($interests)
         </div>
 
 
-        <!-- BUTTON -->
+
+        <!-- =========================
+             BUTTON
+        ========================= -->
+
         <div class="result-buttons">
 
             <a
@@ -220,6 +477,7 @@ $interestDisplay = !empty($interests)
             >
                 ← Kembali ke Form
             </a>
+
 
             <a
                 href="index.php"
@@ -230,48 +488,89 @@ $interestDisplay = !empty($interests)
 
         </div>
 
+
     </div>
 
 </main>
 
 
+
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer>
 
     <div class="footer-container">
 
+
         <div>
-            <h3>KursusKu</h3>
+
+            <h3>
+                KursusKu
+            </h3>
 
             <p>
                 Platform pembelajaran online untuk membantu
                 meningkatkan kemampuan teknologi.
             </p>
+
         </div>
 
-        <div>
-            <h4>Menu</h4>
 
-            <a href="index.php">Beranda</a>
-            <a href="registration.php">Daftar Kursus</a>
-            <a href="history.php">History Dummy</a>
+        <div>
+
+            <h4>
+                Menu
+            </h4>
+
+            <a href="index.php">
+                Beranda
+            </a>
+
+            <a href="registration.php">
+                Daftar Kursus
+            </a>
+
+            <a href="history.php">
+                History Dummy
+            </a>
+
         </div>
 
-        <div>
-            <h4>Kursus</h4>
 
-            <a href="registration.php">Web Dasar</a>
-            <a href="registration.php">PHP Dasar</a>
-            <a href="registration.php">Laravel Dasar</a>
+        <div>
+
+            <h4>
+                Kursus
+            </h4>
+
+            <a href="registration.php">
+                Web Dasar
+            </a>
+
+            <a href="registration.php">
+                PHP Dasar
+            </a>
+
+            <a href="registration.php">
+                Laravel Dasar
+            </a>
+
         </div>
 
     </div>
 
+
     <div class="copyright">
+
         &copy; <?= date('Y') ?> KursusKu.
         Semua hak dilindungi.
+
     </div>
 
 </footer>
+
 
 </body>
 </html>
